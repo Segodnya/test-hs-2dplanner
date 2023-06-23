@@ -16,8 +16,8 @@ const Board = () => {
     accept: "object",
     drop: (item, monitor) => {
       const delta = monitor.getDifferenceFromInitialOffset();
-      const left = Math.round(item.left + delta.x);
-      const top = Math.round(item.top + delta.y);
+      const left = Math.round(item.left + delta.x + 25);
+      const top = Math.round(item.top + delta.y + 25);
       setObjects((prevObjects) =>
         prevObjects.map((obj) =>
           obj.id === item.id ? { ...obj, left, top } : obj
@@ -40,14 +40,14 @@ const Board = () => {
     reader.readAsText(acceptedFiles[0]);
   };
 
-  const Object = ({ obj }) => {
+  const ObjectItem = ({ obj }) => {
     const [{ opacity }, drag] = useDrag(() => ({
       type: "object",
       item: {
         id: obj?.id,
         label: obj?.label,
-        left: obj?.left + 25,
-        top: obj?.top + 25,
+        left: obj?.left,
+        top: obj?.top,
       },
       collect: (monitor) => ({
         opacity: monitor.isDragging() ? 0.4 : 1,
@@ -84,7 +84,7 @@ const Board = () => {
         }}
       >
         {objects.map((obj) => (
-          <Object key={obj.id} obj={obj} />
+          <ObjectItem key={obj.id} obj={obj} />
         ))}
       </div>
       <div>
