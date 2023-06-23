@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDropzone } from "react-dropzone";
-import { saveAs } from "file-saver";
+import SaveButton from "./SaveButton";
+import ImportDropzone from "./ImportDropzone";
 
 const initialObjects = [
   { id: 1, label: "Table", left: 50, top: 50 },
@@ -29,12 +29,6 @@ const Board = () => {
       isOver: !!monitor.isOver(),
     }),
   }));
-
-  const handleSave = () => {
-    const json = JSON.stringify(objects);
-    const blob = new Blob([json], { type: "application/json" });
-    saveAs(blob, "arrangement.json");
-  };
 
   const handleImport = (acceptedFiles) => {
     const reader = new FileReader();
@@ -78,11 +72,6 @@ const Board = () => {
     );
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: handleImport,
-    accept: "application/json",
-  });
-
   return (
     <div>
       <div
@@ -99,11 +88,8 @@ const Board = () => {
         ))}
       </div>
       <div>
-        <button onClick={handleSave}>Save</button>
-        <div {...getRootProps()}>
-          <input {...getInputProps()} />
-          <p>Drag and drop a JSON file here, or click to select a file</p>
-        </div>
+        <SaveButton objects={objects} />
+        <ImportDropzone onImport={handleImport} />
       </div>
     </div>
   );
