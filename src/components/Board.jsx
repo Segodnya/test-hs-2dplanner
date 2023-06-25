@@ -11,6 +11,7 @@ const initialObjects = [
 
 const Board = () => {
   const [objects, setObjects] = useState(initialObjects);
+  const [deleteMode, setDeleteMode] = useState(false);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "object",
@@ -40,6 +41,20 @@ const Board = () => {
     reader.readAsText(acceptedFiles[0]);
   };
 
+  const addObject = (label) => {
+    const newObject = {
+      id: objects.length + 1,
+      label,
+      left: 0,
+      top: 0,
+    };
+    setObjects([...objects, newObject]);
+  };
+
+  const deleteObject = (id) => {
+    setObjects(objects.filter((obj) => obj.id !== id));
+  };
+
   const ObjectItem = ({ obj }) => {
     const [{ opacity }, drag] = useDrag(() => ({
       type: "object",
@@ -53,9 +68,17 @@ const Board = () => {
         opacity: monitor.isDragging() ? 0.4 : 1,
       }),
     }));
+
+    const handleClick = () => {
+      if (deleteMode) {
+        deleteObject(obj.id);
+      }
+    };
+
     return (
       <div
         ref={drag}
+        onClick={handleClick}
         style={{
           position: "absolute",
           left: obj.left,
@@ -63,7 +86,7 @@ const Board = () => {
           border: "1px solid black",
           width: "50px",
           height: "50px",
-          cursor: "move",
+          cursor: deleteMode ? "pointer" : "move",
           opacity,
         }}
       >
@@ -88,6 +111,12 @@ const Board = () => {
         ))}
       </div>
       <div>
+        <button onClick={() => addObject("Table")}>Add Table</button>
+        <button onClick={() => addObject("Chair")}>Add Chair</button>
+        <button onClick={() => addObject("Partition")}>Add Partition</button>
+        <button onClick={() => setDeleteMode(!deleteMode)}>
+          {deleteMode ? "Cancel Delete" : "Delete Item"}
+        </button>
         <SaveButton objects={objects} />
         <ImportDropzone onImport={handleImport} />
       </div>
