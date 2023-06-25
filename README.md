@@ -13,6 +13,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 React, react-dnd, file-saver, react-dropzone, uuid
 
+## Github Pages
+
+https://segodnya.github.io/test-hs-2dplanner/
+
 ## Available Scripts
 
 In the project directory, you can run:
