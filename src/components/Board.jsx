@@ -9,7 +9,7 @@ const initialObjects = [
   { id: 3, label: "Partition", left: 250, top: 250 },
 ];
 
-const Board = () => {
+export default function Board() {
   const [objects, setObjects] = useState(initialObjects);
   const [deleteMode, setDeleteMode] = useState(false);
 
@@ -122,6 +122,4 @@ const Board = () => {
       </div>
     </div>
   );
-};
-
-export default Board;
+}
