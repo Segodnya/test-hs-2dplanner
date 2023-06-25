@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/test-hs-2dplanner/static/css/main.e6c13ad2.css",
+    "main.js": "/test-hs-2dplanner/static/js/main.21520045.js",
+    "static/js/787.d47b69f7.chunk.js": "/test-hs-2dplanner/static/js/787.d47b69f7.chunk.js",
+    "index.html": "/test-hs-2dplanner/index.html",
+    "main.e6c13ad2.css.map": "/test-hs-2dplanner/static/css/main.e6c13ad2.css.map",
+    "main.21520045.js.map": "/test-hs-2dplanner/static/js/main.21520045.js.map",
+    "787.d47b69f7.chunk.js.map": "/test-hs-2dplanner/static/js/787.d47b69f7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.21520045.js"
+  ]
+}
