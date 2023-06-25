@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import SaveButton from "./SaveButton";
 import ImportDropzone from "./ImportDropzone";
+import ObjectItem from "./ObjectItem";
+import { v4 as uuidv4 } from "uuid";
 
 const initialObjects = [
   { id: 1, label: "Table", left: 50, top: 50 },
@@ -17,11 +19,19 @@ export default function Board() {
     accept: "object",
     drop: (item, monitor) => {
       const delta = monitor.getDifferenceFromInitialOffset();
-      const left = Math.round(item.left + delta.x + 25);
-      const top = Math.round(item.top + delta.y + 25);
+      const left = Math.round(item.left + delta.x);
+      const top = Math.round(item.top + delta.y);
+      const boardWidth = 500;
+      const boardHeight = 500;
+      const objectWidth = 50;
+      const objectHeight = 50;
+      const maxLeft = boardWidth - objectWidth;
+      const maxTop = boardHeight - objectHeight;
+      const newLeft = Math.min(Math.max(left, 0), maxLeft);
+      const newTop = Math.min(Math.max(top, 0), maxTop);
       setObjects((prevObjects) =>
         prevObjects.map((obj) =>
-          obj.id === item.id ? { ...obj, left, top } : obj
+          obj.id === item.id ? { ...obj, left: newLeft, top: newTop } : obj
         )
       );
       return undefined;
@@ -43,7 +53,7 @@ export default function Board() {
 
   const addObject = (label) => {
     const newObject = {
-      id: objects.length + 1,
+      id: uuidv4(),
       label,
       left: 0,
       top: 0,
@@ -53,46 +63,6 @@ export default function Board() {
 
   const deleteObject = (id) => {
     setObjects(objects.filter((obj) => obj.id !== id));
-  };
-
-  const ObjectItem = ({ obj }) => {
-    const [{ opacity }, drag] = useDrag(() => ({
-      type: "object",
-      item: {
-        id: obj?.id,
-        label: obj?.label,
-        left: obj?.left,
-        top: obj?.top,
-      },
-      collect: (monitor) => ({
-        opacity: monitor.isDragging() ? 0.4 : 1,
-      }),
-    }));
-
-    const handleClick = () => {
-      if (deleteMode) {
-        deleteObject(obj.id);
-      }
-    };
-
-    return (
-      <div
-        ref={drag}
-        onClick={handleClick}
-        style={{
-          position: "absolute",
-          left: obj.left,
-          top: obj.top,
-          border: "1px solid black",
-          width: "50px",
-          height: "50px",
-          cursor: deleteMode ? "pointer" : "move",
-          opacity,
-        }}
-      >
-        {obj.label}
-      </div>
-    );
   };
 
   return (
@@ -107,7 +77,12 @@ export default function Board() {
         }}
       >
         {objects.map((obj) => (
-          <ObjectItem key={obj.id} obj={obj} />
+          <ObjectItem
+            key={obj.id}
+            obj={obj}
+            deleteMode={deleteMode}
+            deleteObject={deleteObject}
+          />
         ))}
       </div>
       <div>
