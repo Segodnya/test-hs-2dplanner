@@ -8,7 +8,7 @@ const SaveButton = ({ objects }) => {
     saveAs(blob, "arrangement.json");
   };
 
-  return <button onClick={handleSave}>Save</button>;
+  return <button onClick={handleSave}>Сохранить</button>;
 };
 
 export default SaveButton;

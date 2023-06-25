@@ -3,9 +3,11 @@ import React from "react";
 const ObjectList = ({ addObject }) => {
   return (
     <div>
-      <button onClick={() => addObject("Table")}>Add Table</button>
-      <button onClick={() => addObject("Chair")}>Add Chair</button>
-      <button onClick={() => addObject("Partition")}>Add Partition</button>
+      <button onClick={() => addObject("Стол")}>Добавить стол</button>
+      <button onClick={() => addObject("Стул")}>Добавить стул</button>
+      <button onClick={() => addObject("Перегородка")}>
+        Добавить перегородку
+      </button>
     </div>
   );
 };

@@ -10,7 +10,7 @@ const ImportDropzone = ({ onImport }) => {
   return (
     <div {...getRootProps()}>
       <input {...getInputProps()} />
-      <p>Drag and drop a JSON file here, or click to select a file</p>
+      <p>Переместите сюда JSON-файл или кликните, чтобы выбрать файл</p>
     </div>
   );
 };

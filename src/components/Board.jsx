@@ -23,7 +23,14 @@ const Board = ({
   }));
 
   return (
-    <div>
+    <div
+      style={{
+        padding: "10px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+      }}
+    >
       <div>
         <ObjectList addObject={addObject} />
       </div>
@@ -47,7 +54,7 @@ const Board = ({
       </div>
       <div>
         <button onClick={() => setDeleteMode(!deleteMode)}>
-          {deleteMode ? "Cancel Delete" : "Delete Item"}
+          {deleteMode ? "Выкл. удаление" : "Вкл. удаление"}
         </button>
         <SaveButton objects={objects} />
         <ImportDropzone onImport={handleImport} />

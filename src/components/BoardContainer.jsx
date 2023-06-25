@@ -3,9 +3,9 @@ import Board from "./Board";
 import { v4 as uuidv4 } from "uuid";
 
 const initialObjects = [
-  { id: 1, label: "Table", left: 50, top: 50 },
-  { id: 2, label: "Chair", left: 150, top: 150 },
-  { id: 3, label: "Partition", left: 250, top: 250 },
+  { id: 1, label: "Стол", left: 50, top: 50 },
+  { id: 2, label: "Стул", left: 150, top: 150 },
+  { id: 3, label: "Перегородка", left: 250, top: 250 },
 ];
 
 const BoardContainer = () => {
